@@ -19,17 +19,15 @@
 // Note that the five elements can be returned in any order.
 // It does not matter what you leave beyond the returned k (hence they are underscores).
 
-const nums = [3,2,2,3], val = 3
+const nums = [0, 1, 2, 2, 3, 0, 4, 2], val = 2
 var removeElement = function (nums, val) {
-    let l = 0, r = 0;
-    while (r < nums.length) {
-        if (nums[r] != val) {
-            nums[l] = nums[r]
-            l++
+    let counter = 0;
+    for (let index = 0; index < nums.length; index++) {
+        if (nums[index] != val) {
+            nums[counter++] = nums[index]
         }
-        r++
     }
-    return l
+    return counter
 };
 
 console.log(removeElement(nums, val));
