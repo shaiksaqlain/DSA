@@ -18,22 +18,19 @@
 // 1 <= nums.length <= 104
 // -231 <= nums[i] <= 231 - 1
 
-const nums = [1, 0, 1]
+const nums = [1, 2, 0, 2, 3, 0, 1]
 // const nums = [0]
 var moveZeroes = function (nums) {
-    let i = 0, j = 0;
-    while (j < nums.length) {
-        if (nums[i] == 0 && nums[j] != 0) {
-            nums[i] = nums[j]
-            nums[j] = 0
-            i++
+    let counter = 0
+    for (let index = 0; index < nums.length; index++) {
+        if (nums[index] !== 0) {
+            nums[counter++] = nums[index]
         }
-        if (nums[i] != 0) {
-            i++
-        }
-        j++
     }
-    return nums
+    while (counter < nums.length) {
+        nums[counter++] = 0
+    }
+    return nums;
 };
 
 
