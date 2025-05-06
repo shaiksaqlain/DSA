@@ -52,6 +52,6 @@ function findLessRepeatedElement(array) {
     return lessRepeated
 }
 
-const ls = [10, 2, 3, 2, 1, 2, 2, 3, 10, 10, 10]
-const mostRepeated = findLessRepeatedElement(ls)
-console.log(mostRepeated);
+// const ls = [10, 2, 3, 2, 1, 2, 2, 3, 10, 10, 10]
+// const mostRepeated = findLessRepeatedElement(ls)
+// console.log(mostRepeated);
