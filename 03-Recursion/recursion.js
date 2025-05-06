@@ -149,5 +149,5 @@ function fibanacci(n) {
     return last + secondLast;
 }
 
-const n = 10
-console.log(fibanacci(n));
+// const n = 10
+// console.log(fibanacci(n));
