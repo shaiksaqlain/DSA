@@ -137,4 +137,17 @@ function checkPalindrome(r, str, revStr) {
 // console.log(checkPalindrome(r, str, revStr));
 
 
-//########################################################## String Palindrome ###############################################
+//########################################################## Fibonacci Number ###############################################
+
+
+
+function fibanacci(n) {
+    if (n <= 1)
+        return n;
+    const last = fibanacci(n - 1);
+    const secondLast = fibanacci(n - 2);
+    return last + secondLast;
+}
+
+const n = 10
+console.log(fibanacci(n));
