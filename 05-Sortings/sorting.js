@@ -68,9 +68,52 @@ function insertionSort(array) {
     return array;
 }
 // const ls = [1, 2, 3, 4, 5]
-const ls = [10, 9, 4, 7, 1]
-const sortedArray = insertionSort(ls)
-console.log(sortedArray);
+// const ls = [10, 9, 4, 7, 1]
+// const sortedArray = insertionSort(ls)
+// console.log(sortedArray);
 
+
+
+//########################################################## Merge Sort ###############################################
+//Insertion sort is all about choosing one element and keeping it in their place
+
+function merge(array, low, mid, high) {
+    let temp = [];
+    let i = low, j = mid + 1
+    while (i <= mid && j <= high) {
+        if (array[i] < array[j]) {
+            temp.push(array[i])
+            i++
+        } else {
+            temp.push(array[j])
+            j++
+        }
+    }
+    for (let index = i; index <= mid; index++) {
+        temp.push(array[index])
+    }
+    for (let index = j; index <= high; index++) {
+        temp.push(array[index])
+    }
+    for (let k = 0; k < temp.length; k++) {
+        array[low + k] = temp[k];
+    }
+    return array
+}
+
+function mergeSort(array, low, high) {
+    if (low >= high) {
+        return
+    };
+
+    const mid = Math.floor((low + high) / 2)
+    mergeSort(array, low, mid);
+    mergeSort(array, mid + 1, high);
+    const result = merge(array, low, mid, high)
+    return result
+}
+const ls = [10, 9, 4, 7, 1]
+const sortedArray = mergeSort(ls, 0, ls.length - 1)
+console.log(sortedArray);
 
 
