@@ -75,7 +75,6 @@ function insertionSort(array) {
 
 
 //########################################################## Merge Sort ###############################################
-//Insertion sort is all about choosing one element and keeping it in their place
 
 function merge(array, low, mid, high) {
     let temp = [];
@@ -112,8 +111,42 @@ function mergeSort(array, low, high) {
     const result = merge(array, low, mid, high)
     return result
 }
-const ls = [10, 9, 4, 7, 1]
-const sortedArray = mergeSort(ls, 0, ls.length - 1)
+// const ls = [10, 9, 4, 7, 1]
+// const sortedArray = mergeSort(ls, 0, ls.length - 1)
+// console.log(sortedArray);
+
+
+
+//########################################################## Quick Sort ###############################################
+
+function findPartionIndex(array, low, high) {
+    let l = low + 1, r = high;
+    const pivot = array[low]
+    while (l < r) {
+        while (array[l] <= pivot && l <= high)
+            l++
+        while (array[r] > pivot && r >= low)
+            r--
+        if (l < r) {
+            [array[l], array[r]] = [array[r], array[l]];
+        }
+    }
+
+    [array[low], array[r]] = [array[r], array[low]];
+    return r;
+}
+
+function quickSort(array, low, high) {
+    if (low >= high) {
+        return
+    };
+    const partionIndex = findPartionIndex(array, low, high)
+    quickSort(array, low, partionIndex - 1)
+    quickSort(array, partionIndex + 1, high)
+    return array
+}
+const ls = [1, 2, 10, 8, 9, 4, 7, 1]
+const sortedArray = quickSort(ls, 0, ls.length - 1)
 console.log(sortedArray);
 
 
