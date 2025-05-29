@@ -291,5 +291,30 @@ function findNumberAppearsOnceV2(array) {
     return result;
 }
 
-const array = [4, 1, 2, 1, 2];
-console.log(findNumberAppearsOnceV2(array));
+// const array = [4, 1, 2, 1, 2];
+// console.log(findNumberAppearsOnceV2(array));
+
+//################################################### Longest Subarray with given Sum K (Positives) ###########################################
+function longestSubArrayOfSum(array, n, k) {
+    let sum = 0;
+    let maxLength = 0
+
+    for (let l = 0; l < array.length; l++) {
+        let r = l + 1
+        sum += array[l]
+
+        while (sum < k && r < array.length) {
+            sum += array[r]
+            r++
+        }
+        if (sum == k) {
+            maxLength = Math.max(r - l, maxLength);
+        }
+        sum = 0
+
+    }
+    return maxLength;
+}
+
+const array = [1, 2, 3, 4, 5], n = 5, k = 3;
+console.log(longestSubArrayOfSum(array, n, k));
