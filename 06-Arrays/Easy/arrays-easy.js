@@ -315,6 +315,29 @@ function longestSubArrayOfSum(array, n, k) {
     }
     return maxLength;
 }
+const array = [3, 1, 1, 2, 3], n = 5, k = 4;
+console.log(longestSubArrayOfSum(array, n,k));
 
-const array = [1, 2, 3, 4, 5], n = 5, k = 3;
-console.log(longestSubArrayOfSum(array, n, k));
+
+function longestSubArrayOfSumForPositiveAndNegative(array, k) {
+    const sumIndexMap = new Map();
+    let sum = 0;
+    let maxLength = 0;
+
+    for (let i = 0; i < array.length; i++) {
+        sum += array[i];
+        if (sum == k) {
+            maxLength = i + 1
+        }
+        if (sumIndexMap.has(sum - k)) {
+            maxLength = Math.max(maxLength, i - sumIndexMap.get(sum - k))
+        }
+        if (!sumIndexMap.has(sum)) {
+            sumIndexMap.set(sum, i)
+        }
+    }
+
+    return maxLength;
+}
+// const array = [3, 1, -4, 2, 3], n = 5, k = 4;
+// console.log(longestSubArrayOfSumForPositiveAndNegative(array, k));
