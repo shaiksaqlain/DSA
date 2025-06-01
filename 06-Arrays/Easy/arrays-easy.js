@@ -296,10 +296,10 @@ function findNumberAppearsOnceV2(array) {
 
 //################################################### Longest Subarray with given Sum K (Positives) ###########################################
 function longestSubArrayOfSum(array, n, k) {
-    let sum = 0;
     let maxLength = 0
 
     for (let l = 0; l < array.length; l++) {
+        let sum = 0;
         let r = l + 1
         sum += array[l]
 
@@ -310,13 +310,11 @@ function longestSubArrayOfSum(array, n, k) {
         if (sum == k) {
             maxLength = Math.max(r - l, maxLength);
         }
-        sum = 0
-
     }
     return maxLength;
 }
-const array = [3, 1, 1, 2, 3], n = 5, k = 4;
-console.log(longestSubArrayOfSum(array, n,k));
+// const array = [3, 1, 1, 2, 3], n = 5, k = 4;
+// console.log(longestSubArrayOfSum(array, n, k));
 
 
 function longestSubArrayOfSumForPositiveAndNegative(array, k) {
@@ -326,18 +324,22 @@ function longestSubArrayOfSumForPositiveAndNegative(array, k) {
 
     for (let i = 0; i < array.length; i++) {
         sum += array[i];
-        if (sum == k) {
+
+        if (sum === k) {
             maxLength = i + 1
         }
+
         if (sumIndexMap.has(sum - k)) {
             maxLength = Math.max(maxLength, i - sumIndexMap.get(sum - k))
         }
+
         if (!sumIndexMap.has(sum)) {
             sumIndexMap.set(sum, i)
         }
+
     }
 
     return maxLength;
 }
-// const array = [3, 1, -4, 2, 3], n = 5, k = 4;
-// console.log(longestSubArrayOfSumForPositiveAndNegative(array, k));
+const array = [2, 1, 1, -4, 2, 3], n = 5, k = 4;
+console.log(longestSubArrayOfSumForPositiveAndNegative(array, k));
