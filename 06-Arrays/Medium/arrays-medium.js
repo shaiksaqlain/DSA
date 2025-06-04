@@ -306,5 +306,66 @@ function longestConsectiveSequencev1(array) {
     }
     return maxCount;
 }
-const array = [9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6]
-console.log(longestConsectiveSequencev1(array))
+// const array = [9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6]
+// console.log(longestConsectiveSequencev1(array))
+
+//#################################### Set Matrix Zero ###############################################
+function setMatrixZero(array) {
+    let rowIndex = new Set()
+    let colIndex = new Set()
+    for (let i = 0; i < array.length; i++) {
+        for (let j = 0; j < array[i].length; j++) {
+            if (array[i][j] == 0) {
+                rowIndex.add(i)
+                colIndex.add(j)
+            }
+        }
+    }
+    for (i of rowIndex) {
+        for (let j = 0; j < array.length; j++) {
+            array[i][j] = 0
+        }
+    }
+    for (i of colIndex) {
+        for (let j = 0; j < array.length; j++) {
+            array[j][i] = 0
+        }
+    }
+    return array
+}
+
+// const matrix = [[0, 2, 3], [4, 5, 6], [7, 0, 9],];
+// console.log(setMatrixZero(matrix));
+
+
+//#################################### Rotate Image by 90 degree ###############################################
+//better solution
+function rotateBy90(array) {
+    let result = Array.from({ length: array.length }, () => []);
+
+    let matrixLen = array.length - 1
+    for (let i = 0; i < array.length; i++) {
+        for (let j = 0; j < array[i].length; j++) {
+            result[j][matrixLen] = array[i][j]
+        }
+        matrixLen--
+    }
+    return result
+}
+
+
+//optimal solution
+function rotateBy90V1(array) {
+    for (let i = 0; i < array.length; i++) {
+        for (let j = 1; j < array[i].length; j++) {
+            [array[i][j], array[j][i]] = [array[j][i], array[i][j]]
+        }
+    }
+    for (let index = 0; index < array.length; index++) {
+        array[index] = array[index].reverse();
+
+    }
+    return array
+}
+const matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9],];
+console.log(rotateBy90(matrix));
