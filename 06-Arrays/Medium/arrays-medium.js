@@ -367,5 +367,46 @@ function rotateBy90V1(array) {
     }
     return array
 }
-const matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9],];
-console.log(rotateBy90(matrix));
+// const matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9],];
+// console.log(rotateBy90(matrix));
+
+//####################################  Spiral Traversal of Matrix###############################################
+//better solution
+function spiralMatrix(matrix) {
+    let top = 0, bottom = matrix.length,
+        left = 0, right = matrix[0].length;
+    const result = []
+    while (top < bottom && left < right) {
+        for (let i = left; i < right; i++) {
+            result.push(matrix[top][i])
+        }
+        top++
+
+        for (let i = top; i < bottom; i++) {
+            result.push(matrix[i][right - 1])
+        }
+        right--
+
+        if (top < bottom) {
+            for (let i = right - 1; i >= left; i--) {
+                result.push(matrix[bottom - 1][i])
+            }
+            bottom--
+        }
+        if (left < right) {
+            for (let i = bottom - 1; i >= top; i--) {
+                result.push(matrix[i][left])
+            }
+            left++
+        }
+    }
+    return result
+}
+
+
+const matrix = [
+    [1, 2, 3, 4],
+    [10, 11, 12, 5],
+    [9, 8, 7, 6]
+]
+console.log(spiralMatrix(matrix));
