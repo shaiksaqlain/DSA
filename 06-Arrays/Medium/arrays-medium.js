@@ -404,9 +404,24 @@ function spiralMatrix(matrix) {
 }
 
 
-const matrix = [
-    [1, 2, 3, 4],
-    [10, 11, 12, 5],
-    [9, 8, 7, 6]
-]
-console.log(spiralMatrix(matrix));
+// const matrix = [[1, 2, 3, 4], [10, 11, 12, 5][9, 8, 7, 6]]
+// console.log(spiralMatrix(matrix));
+
+
+//#################################### Count Subarray sum Equals K ###############################################
+
+function countSubArraySum(array, k) {
+    let count = 0;
+    const hashMap = { '0': 1 };
+    let presum = 0
+    for (let i = 0; i < array.length; i++) {
+        presum += array[i]
+        const compliment = presum - k
+        count += hashMap[compliment] || 0
+        hashMap[presum] = (hashMap[presum] || 0) + 1
+    }
+    return count;
+}
+
+const array = [3, 4, 7, 2, -3, 1, 4, 2], k = 7
+console.log(countSubArraySum(array, k));
