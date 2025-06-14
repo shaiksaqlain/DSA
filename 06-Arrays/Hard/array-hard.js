@@ -99,5 +99,108 @@ function fourSum(array, target) {
 };
 //t0 ->  [1,0,-1,0,-2,2], target = 0
 //t1 ->  [4,3,3,4,4,2,1,2,1,1], target = 9
-const array = [-1, 0, -5, -2, -2, -4, 0, 1, -2], target = -9
-console.log(fourSum(array, target));
+// const array = [-1, 0, -5, -2, -2, -4, 0, 1, -2], target = -9
+// console.log(fourSum(array, target));
+
+//####################################### Length of the longest subarray with zero Sum ########################################
+
+
+function longestSubArrayWithLengthZero(array, target) {
+    const hashMap = { 1: 2 };
+
+
+    let sum = 0, max = -Infinity;
+    for (let i = 0; i < array.length; i++) {
+        sum += array[i];
+        if (sum == target) {
+            max = Math.max(max, i + 1);
+        } else {
+            if (sum in hashMap) {
+                max = Math.max(max, i - hashMap[sum]);
+            } else {
+                hashMap[sum] = i
+            }
+        }
+    }
+    return max
+}
+
+// const array = [9, -3, 3, -1, 6, -5], target = 0
+// console.log(longestSubArrayWithLengthZero(array, target));
+
+
+//####################################### Count the number of subarrays with given xor K ########################################
+
+
+function countNumberofSubArraysXOROfK(array, k) {
+    const hashMap = { 0: 1 };
+    let xor = 0
+    let count = 0
+    for (let i = 0; i < array.length; i++) {
+        xor = xor ^ array[i];
+        const x = xor ^ k
+
+        count += hashMap[x] || 0;
+        hashMap[xor] = (hashMap[xor] || 0) + 1
+    }
+    return count;
+}
+
+// const array = [4, 2, 2, 6, 4], k = 6
+// const array = [1, 2, 3], k = 10
+// console.log(countNumberofSubArraysXOROfK(array, k));
+
+
+
+//####################################### Merge two Sorted Arrays Without Extra Space ########################################
+
+
+function mergeTwoSortedArrays(arr1, arr2, m, n, arrLen) {
+    while (m >= 0 && n >= 0) {
+        if (arr1[m] > arr2[n]) {
+            arr1[arrLen] = arr1[m]
+            m--
+        } else {
+            arr1[arrLen] = arr2[n]
+            n--
+        }
+        arrLen--
+    }
+    if (n > 0) {
+        while (n >= 0) {
+            arr1[arrLen] = arr2[n]
+            n--;
+            arrLen--;
+        }
+    }
+    return arr1;
+}
+
+// const array = [4, 2, 2, 6, 4], k = 6
+
+// const arr1 = [1, 3, 5], m = 3, arr2 = [2, 4, 6], n = 3
+// const arr1 = [4, 5, 6, 0, 0, 0], m = 3;
+// const arr2 = [1, 2, 3], n = 3;
+// console.log(mergeTwoSortedArrays(arr1, arr2, m - 1, n - 1, m + n - 1));
+
+
+//####################################### Merge Overlapping Sub-intervals ########################################
+
+function mergeOverlaping(array) {
+    array = array.sort((a, b) => a - b);
+    const result = [];
+    for (let i = 0; i < array.length; i++) {
+        if (!result.length || result[result.length - 1][1] < array[i][0]) {
+            result.push(array[i])
+        } else {
+            last = result[result.length - 1]
+            if (last[1] >= array[i][0]) {
+                last[1] = Math.max(last[1], array[i][1])
+                result[result.length - 1] = last
+            }
+        }
+    }
+    return result;
+}
+const array = [[1, 3], [2, 6], [8, 10], [15, 18]]
+console.log(mergeOverlaping(array));
