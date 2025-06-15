@@ -202,5 +202,48 @@ function mergeOverlaping(array) {
     }
     return result;
 }
-const array = [[1, 3], [2, 6], [8, 10], [15, 18]]
-console.log(mergeOverlaping(array));
+// const array = [[1, 3], [2, 6], [8, 10], [15, 18]]
+// console.log(mergeOverlaping(array));
+
+//####################################### Find the repeating and missing numbers ########################################
+function findRepeatedAndMissing(array) {
+    const hashMap = {}
+    let missing = -1, repeated = -1;
+    for (let i = 0; i < array.length; i++) {
+        hashMap[array[i]] = (hashMap[array[i]] || 0) + 1
+    }
+    for (let i = 1; i <= array.length; i++) {
+        const count = hashMap[i] || 0;
+        if (count === 0) {
+            missing = i;
+        } else if (count > 1) {
+            repeated = i;
+        }
+    }
+
+    return [repeated, missing]
+}
+
+// const array = [1, 2, 3, 4, 4]
+// console.log(findRepeatedAndMissing(array));
+
+//####################################### Maximum Product Subarray in an Array ########################################
+
+
+function findMaximumProduct(array) {
+    let prefix = 1, suffix = 1, max = -Infinity;
+    for (let i = 0; i < array.length; i++) {
+
+        if (suffix == 0) suffix = 1
+        if (prefix == 0) prefix = 1
+
+        prefix = prefix * array[i]
+        suffix = suffix * array[array.length - 1 - i]
+        max = Math.max(prefix, suffix, max)
+
+    }
+    return max;
+}
+
+const array = [1,2,-3,0,-4,-5]
+console.log(findMaximumProduct(array));
