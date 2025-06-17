@@ -245,5 +245,53 @@ function findMaximumProduct(array) {
     return max;
 }
 
-const array = [1,2,-3,0,-4,-5]
-console.log(findMaximumProduct(array));
+// const array = [1, 2, -3, 0, -4, -5]
+// console.log(findMaximumProduct(array));
+
+
+//####################################### Count inversions in an array ########################################
+
+function merge(array, low, mid, high) {
+    let l = low, r = mid + 1;
+    let count = 0;
+    const temp = [];
+    while (l <= mid && r <= high) {
+        if (array[l] < array[r]) {
+            temp.push(array[l])
+            l++
+        } else {
+            count += (mid - l + 1);
+            temp.push(array[r])
+            r++
+        }
+    }
+    while (l <= mid) {
+        temp.push(array[l])
+        l++
+    }
+    while (r <= high) {
+        temp.push(array[r])
+        r++
+    }
+
+    for (let i = 0; i < temp.length; i++) {
+        array[low + i] = temp[i]
+    }
+    return count;
+}
+
+
+function countInversions(array, low, high) {
+    let count = 0;
+    if (low >= high) {
+        return count;
+    }
+    const mid = Math.floor((low + high) / 2);
+    count += countInversions(array, low, mid);
+    count += countInversions(array, mid + 1, high);
+    count += merge(array, low, mid, high)
+    return count
+}
+
+const array = [5,3,2,1,4];
+console.log(countInversions(array, 0, array.length - 1));
