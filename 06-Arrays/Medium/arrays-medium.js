@@ -334,8 +334,8 @@ function setMatrixZero(array) {
     return array
 }
 
-// const matrix = [[0, 2, 3], [4, 5, 6], [7, 0, 9],];
-// console.log(setMatrixZero(matrix));
+const matrix = [[0, 2, 3], [4, 5, 6], [7, 0, 9],];
+console.log(setMatrixZero(matrix));
 
 
 //#################################### Rotate Image by 90 degree ###############################################

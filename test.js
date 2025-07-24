@@ -278,5 +278,43 @@ function countSubarraysumEqualsK(array, k) {
     return count;
 }
 
-const array = [1,2,3], k = 3
-console.log(countSubarraysumEqualsK(array, k));
+// const array = [1,2,3], k = 3
+// console.log(countSubarraysumEqualsK(array, k));
+
+
+function selectionSort(array) {
+    for (let i = 0; i < array.length; i++) {
+        const min = i;
+        for (let j = i + 1; j < array.length; j++) {
+            if (array[j] < array[i]) {
+                [array[j], array[min]] = [array[min], array[j]]
+            }
+        }
+    }
+    return array;
+}
+
+// const array = [13, 46, 24, 52, 20, 9]
+// console.log(selectionSort(array));
+
+
+function bubbleSort(array) {
+    let swap = true;
+    for (let i = array.length - 1; i >= 0; i--) {
+        for (let j = 0; j < i; j++) {
+            if (array[j] > array[j + 1]) {
+                [array[j + 1], array[j]] = [array[j], array[j + 1]]
+                swap = false;
+            }
+        }
+        if (swap) {
+            return array
+        }
+    }
+    return array;
+}
+
+// const array = [13, 46, 24, 52, 20, 9]
+// console.log(bubbleSort(array));
+
+
