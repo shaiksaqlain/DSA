@@ -121,6 +121,30 @@ function maximumSumInSubArray(array) {
 
 //#################################### Sort an array of 0s, 1s and 2s ###############################################
 
+function sort012(array) {
+    let low = 0, mid = 0, high = array.length - 1;
+    while (mid <= high) {
+        if (array[mid] == 0) {
+            [array[low], array[mid]] = [array[mid], array[low]]
+            low++
+            mid++
+        } else if (array[mid] == 1) {
+            mid++
+        } else {
+            [array[high], array[mid]] = [array[mid], array[high]]
+            high--
+        }
+    }
+    return array;
+}
+
+const array = [2, 0, 2, 1, 1, 0]
+console.log(sort012(array))
+
+
+//#################################### Stock Buy And Sell ###############################################
+
+
 function buySellStock(array) {
     let stockBought = array[0];
     let maxProfit = 0
@@ -135,8 +159,5 @@ function buySellStock(array) {
     return maxProfit;
 }
 
-const array = [7, 1, 5, 3, 6, 4]
-console.log(buySellStock(array))
-
-
-//#################################### Stock Buy And Sell ###############################################
+// const array = [7, 1, 5, 3, 6, 4]
+// console.log(buySellStock(array))
