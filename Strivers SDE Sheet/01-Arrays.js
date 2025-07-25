@@ -14,11 +14,10 @@ function setMatrixZero(array) {
     }
 
     for (i of rowZeros) {
-        for (let j = 0; j < array[0].length; j++) {
+        for (let j = 0; j < array.length; j++) {
             array[i][j] = 0
         }
     }
-
     for (i of columnZeros) {
         for (let j = 0; j < array.length; j++) {
             array[j][i] = 0
@@ -27,8 +26,8 @@ function setMatrixZero(array) {
     return array
 }
 
-// const array = [[1, 0, 3],[4, 5, 6],[0, 8, 9]];
-// console.log(setMatrixZero(array));
+const array = [[1, 0, 3], [4, 5, 6], [0, 8, 9]];
+console.log(setMatrixZero(array));
 
 //#################################### Pascal triangle ###############################################
 function findElementInPascal(r, c) {
@@ -138,8 +137,8 @@ function sort012(array) {
     return array;
 }
 
-const array = [2, 0, 2, 1, 1, 0]
-console.log(sort012(array))
+// const array = [2, 0, 2, 1, 1, 0]
+// console.log(sort012(array))
 
 
 //#################################### Stock Buy And Sell ###############################################
