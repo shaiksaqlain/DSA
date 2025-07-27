@@ -181,5 +181,5 @@ function mergeSort(array, low, high) {
     return count
 }
 
-const array = [1, 3, 2, 3, 1];
-console.log(mergeSort(array, 0, array.length - 1));
+// const array = [1, 3, 2, 3, 1];
+// console.log(mergeSort(array, 0, array.length - 1));
