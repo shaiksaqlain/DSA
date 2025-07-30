@@ -318,3 +318,129 @@ function bubbleSort(array) {
 // console.log(bubbleSort(array));
 
 
+class Node {
+    constructor(data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    constructor() {
+        this.head = null;
+    }
+
+    append(data) {
+        const newNode = new Node(data)
+        if (!this.head) {
+            this.head = newNode;
+            return;
+        }
+        let current = this.head;
+        while (current.next) {
+            current = current.next;
+        }
+        current.next = newNode;
+    }
+
+    prepend(data) {
+        let newNode = new Node(data);
+        if (!this.head) {
+            this.head = newNode
+            return;
+        }
+        newNode.next = this.head
+        this.head = newNode
+    }
+
+    insertAt(index, data) {
+        if (index == 0) {
+            this.prepend(data)
+        }
+        const newNode = new Node(data);
+        let current = this.head;
+        let previous = null;
+        let count = 0;
+        while (current.next && count < index) {
+            previous = current
+            current = current.next;
+            count++
+        }
+        if (previous) {
+            previous.next = newNode;
+            newNode.next = current;
+        }
+    }
+
+    delete(data) {
+        if (!this.head) {
+            console.log("No Data! Empty");
+            return;
+        }
+        if (this.head.data == data) {
+            this.head = this.head.next
+            return;
+        }
+        let current = this.head;
+        while (current.next && current.next.data != data) {
+            current = current.next;
+        }
+        if (current.next) {
+            current.next = current.next.next;
+        } else {
+            console.log("data not found");
+        }
+    }
+
+    search(data) {
+        let current = this.head
+        let index = 0
+        while (current) {
+            if (current.data == data) {
+                console.log(`Data ${data} found at ${index} `);
+
+            }
+            current = current.next
+            index++
+        }
+    }
+
+
+    printList() {
+        let current = this.head;
+        const list = []
+        while (current) {
+            list.push(current.data);
+            current = current.next;
+        }
+        console.log(list.join('->'));
+    }
+
+
+    reverse() {
+        let previous = null;
+        let next = null;
+        let current = this.head;
+
+    }
+}
+
+const list = new LinkedList();
+
+list.append(10)
+list.append(20)
+list.append(30)
+// console.log("All data after append");
+// list.printList()
+// list.prepend(40)
+// console.log("All data after Prepend");
+// list.printList()
+// list.insertAt(3, 60)
+// console.log("All data after insert at");
+// list.printList()
+// list.delete(40)
+// console.log("All data after detele 40");
+// list.printList()
+// list.search(60)
+list.reverse()
+list.printList()

@@ -38,7 +38,7 @@ function findNBy3(array) {
 
 function threeSum(array) {
     const result = []
-    array = array.sort()
+    array = array.sort((a, b) => a - b)
     for (let i = 0; i < array.length; i++) {
         if (i > 0 && array[i] == array[i - 1]) continue
         let j = i + 1, k = array.length - 1
@@ -48,8 +48,8 @@ function threeSum(array) {
                 result.push([array[i], array[j], array[k]])
                 j++
                 k--
-                while (j < k && array[j] == array[j - 1]) continue
-                while (j < k && array[k] == array[k - 1]) continue
+                while (j < k && array[j] == array[j - 1]) j++
+                while (j < k && array[k] == array[k - 1]) k--
             } else if (sum > 0) {
                 k--
             } else {
@@ -293,5 +293,5 @@ function countInversions(array, low, high) {
     return count
 }
 
-const array = [5,3,2,1,4];
+const array = [5, 3, 2, 1, 4];
 console.log(countInversions(array, 0, array.length - 1));
