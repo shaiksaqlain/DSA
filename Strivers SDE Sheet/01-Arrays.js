@@ -26,8 +26,8 @@ function setMatrixZero(array) {
     return array
 }
 
-const array = [[1, 0, 3], [4, 5, 6], [0, 8, 9]];
-console.log(setMatrixZero(array));
+// const array = [[1, 0, 3], [4, 5, 6], [0, 8, 9]];
+// console.log(setMatrixZero(array));
 
 //#################################### Pascal triangle ###############################################
 function findElementInPascal(r, c) {
@@ -36,14 +36,14 @@ function findElementInPascal(r, c) {
         result = result * (r - i)
         result = result / i
     }
-    return result
+    return result;
 }
 
 function printNthRowInPascal(n) {
     let result = 1;
-    let pascalRow = result + " "
+    let pascalRow = result + ' ';
     for (let i = 1; i < n; i++) {
-        result = result * (n - i)
+        result = result * (n - i);
         result = result / i
         pascalRow = pascalRow + result + ' '
     }
@@ -56,7 +56,7 @@ function printPascalTriangle(n) {
         console.log(result);
     }
 }
-// const n = 5, r = 5, c = 3;
+const n = 5, r = 5, c = 3;
 // console.log(findElementInPascal(r, c))
 // console.log(printNthRowInPascal(n))
 // console.log(printPascalTriangle(n))
@@ -80,18 +80,18 @@ function nextPermutation(array) {
             break;
         }
     }
-    if (pivot === -1) {
+    if (pivot == -1) {
         return reverseArray(array, 0, array.length - 1);
     }
-
     for (let i = array.length - 1; i > pivot; i--) {
         if (array[i] > array[pivot]) {
-            [array[i], array[pivot]] = [array[pivot], array[i]]
+            [array[pivot], array[i]] = [array[i], array[pivot]]
             break;
         }
     }
 
     return reverseArray(array, pivot + 1, array.length - 1)
+
 }
 // const array = [1, 2, 3, 6, 5, 4]
 // console.log(nextPermutation(array))
@@ -114,8 +114,8 @@ function maximumSumInSubArray(array) {
     return maximumSum
 }
 
-// const array = [4, -1, 2, 1]
-// console.log(maximumSumInSubArray(array))
+const array = [4, -1, 2, 1]
+console.log(maximumSumInSubArray(array))
 
 
 //#################################### Sort an array of 0s, 1s and 2s ###############################################
@@ -146,10 +146,9 @@ function sort012(array) {
 
 function buySellStock(array) {
     let stockBought = array[0];
-    let maxProfit = 0
-
-    for (let i = 0; i < array.length; i++) {
-        if (array[i] < stockBought) {
+    let maxProfit = 0;
+    for (let i = i; i < array.length; i++) {
+        if (stockBought > array[i]) {
             stockBought = array[i]
         } else if (maxProfit < array[i] - stockBought) {
             maxProfit = array[i] - stockBought
