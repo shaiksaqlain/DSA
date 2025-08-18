@@ -6,8 +6,10 @@ function searchInMatrix(array, target, m, n) {
     let low = 0, high = (m * n + 1);
     while (low <= high) {
         const mid = Math.floor((low + high) / 2)
+
         const rowIndex = Math.floor(mid / m);
         const colIndex = Math.floor(mid % m);
+
         if (array[rowIndex][colIndex] == target) {
             return true;
         } else if (array[rowIndex][colIndex] < target) {
@@ -19,32 +21,35 @@ function searchInMatrix(array, target, m, n) {
     return false
 }
 
-// const matrix = [[1, 3, 5], [7, 9, 11], [13, 15, 17]], target = 9;
-// console.log(searchInMatrix(matrix, target, matrix.length - 1, matrix[0].length - 1));
+const matrix = [[1, 3, 5], [7, 9, 11], [13, 15, 17]], target = 9;
+console.log(searchInMatrix(matrix, target, matrix.length - 1, matrix[0].length - 1));
 
 
 
 //####################################### Implement Pow(x,n) | X raised to the power N ########################################
 
 function powXN(x, n) {
-    if (n == 0) return 1;
-    let N = n
-    if (N < 0) {
-        x = 1 / x;
-        N = -N;
+
+    if (n == 0) {
+        return x;
     }
-    let answer = 1
+    let N = n
+    if (n < 0) {
+        N = - N;
+        x = 1 / x;
+    }
+    let answer = 1;
     while (N > 0) {
         if (N % 2 == 1) {
             answer = answer * x;
         }
         x = x * x;
-        N = Math.floor(N / 2)
+        N = Math.floor(N / 2);
     }
     return answer
 }
 
-// const x = 2, n = 10;
+const x = 2, n = 10;
 // console.log(powXN(x, n));
 // console.log(powXN(2, -2)); 
 

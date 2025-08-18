@@ -41,8 +41,8 @@ function threeSum(array, target) {
     return result;
 }
 
-const array = [-1, 0, 1, 2, -1, -4], target = 0;
-console.log(threeSum(array, target));
+// const array = [-1, 0, 1, 2, -1, -4], target = 0;
+// console.log(threeSum(array, target));
 
 
 //####################################### Four Sum | Find Quads that add up to a target value ########################################
@@ -112,17 +112,19 @@ function longestConsecutive(params) {
 //####################################### Largest Subarray with K sum ########################################
 
 function largestSubArrayOfKSum(array, target) {
-    const hashMap = new Map();
+    let hashMap = new Map();
+    let max = 0;
     let prefixSum = 0;
-    let max = 0
     for (let i = 0; i < array.length; i++) {
         prefixSum += array[i];
+
         if (prefixSum == target) {
-            max = i + 1
+            max = i + 1;
         }
+
         if (hashMap.has(prefixSum - target)) {
-            const previousIndex = hashMap.get(prefixSum - target)
-            max = Math.max(max, i - previousIndex)
+            const previousIndex = hashMap.get(prefixSum - target);
+            max = Math.max(max, i - previousIndex);
         }
 
         if (!hashMap.has(prefixSum)) {
@@ -136,7 +138,7 @@ function largestSubArrayOfKSum(array, target) {
 // console.log(largestSubArrayOfKSum(array, target));
 
 
-//####################################### Number od Subarray with K sum ########################################
+//####################################### Number of Subarray with K sum ########################################
 
 function numberSubArrayOfKSum(array, target) {
     const hashMap = { 0: 1 }
@@ -147,7 +149,6 @@ function numberSubArrayOfKSum(array, target) {
         const compliment = prefixSum - target;
         count += hashMap[compliment] || 0;
         hashMap[prefixSum] = (hashMap[prefixSum] || 0) + 1
-
     }
     return count;
 }
@@ -178,7 +179,7 @@ function numberSubArrayOfKXOR(array, k) {
 function lengthOfLongestSubString(str) {
     const hashMap = {};
     let length = 0;
-    let l = 0, r = 1;
+    let r = 0, l = 0;
     while (r < str.length) {
         if (str[r] in hashMap) {
             l = Math.max(l, hashMap[str[r]] + 1)
