@@ -90,30 +90,32 @@ class Node {
 }
 
 function cloneLinkedList(head) {
+    let current = head;
 
-    let curr = head
-    while (curr) {
-        let copyNode = new Node(curr.data, curr.next);
-        curr.next = copyNode;
-        curr = copyNode.next;
+    while (current) {
+        let copyNode = new Node(current.data, current.next);
+        current.next = copyNode;
+        current = copyNode.next
+    }
+    current = head;
+
+    while (current) {
+        current.next.random = current.random.next;
+        current = current.next.next
     }
 
-    curr = head;
-    while (curr) {
-        curr.next.random = curr.random;
-        curr = curr.next.next
+    let clonedList = head.next;
+    let dummyClonedList = clonedList;
+    current = head;
+
+    while (current) {
+        current.next = current.next.next;
+        dummyClonedList.next = dummyClonedList.next ? dummyClonedList.next.next : null;
+        current = current.next
+        dummyClonedList = dummyClonedList.next
     }
 
-    let clonedLinkedList = head.next
-    let dummyClonedLinkedList = clonedLinkedList;
-    curr = head;
-    while (curr) {
-        curr.next = curr.next.next;
-        dummyClonedLinkedList.next = dummyClonedLinkedList.next ? dummyClonedLinkedList.next.next : null;
-        curr = curr.next;
-        dummyClonedLinkedList = dummyClonedLinkedList.next
-    }
-    return clonedLinkedList
+    return clonedList;
 }
 
 // Create a simple test with random pointers
