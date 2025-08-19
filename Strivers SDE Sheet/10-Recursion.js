@@ -24,12 +24,12 @@ function subsetTwo(array) {
     array = array.sort();
     const result = [];
     function backtrack(start, subset) {
-        result.pushI([...subset])
+        result.push([...subset])
 
         for (let i = start; i < array.length; i++) {
             if (i > start && array[i] == array[i - 1]) continue;
 
-            subset.push([array[i]]);
+            subset.push(array[i]);
             backtrack(i + 1, subset);
             subset.pop();
         }
