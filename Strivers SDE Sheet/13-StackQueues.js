@@ -136,3 +136,129 @@ class Queue {
 // myQueue.enQueue(3)
 // myQueue.printQueue()
 // myQueue.top();
+
+//##########################################################  Stack implemention using Linkedlist ###############################################
+
+class Node {
+    constructor(data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class StackLL {
+    constructor() {
+        this.head = null;
+        this.count = 0;
+        this.size = 3;
+    }
+
+    push(data) {
+
+        if (this.count >= this.size)
+            return console.log('Stack overflow!');
+        const newNode = new Node(data)
+        const head = this.head;
+        this.head = newNode;
+        newNode.next = head;
+        this.count++
+    }
+
+    pop() {
+        if (!this.head)
+            return console.log('Stack is empty');
+        this.head = this.head.next;
+    }
+
+    top() {
+        if (!this.head)
+            return console.log('Stack is empty');
+        console.log(this.head.data);
+
+    }
+
+    printStack() {
+        let current = this.head;
+        const result = [];
+        while (current) {
+            result.push(current.data)
+            current = current.next
+        }
+        console.log(result);
+    }
+}
+
+// const mystack = new StackLL();
+// mystack.push(2)
+// mystack.push(3)
+// mystack.push(3)
+// mystack.printStack();
+// mystack.pop()
+// mystack.printStack();
+// mystack.top()
+
+
+//##########################################################  Queue implemention using Linkedlist ###############################################
+
+
+
+
+class QueueLL {
+    constructor() {
+        this.head = null;
+        this.tail = null;
+        this.count = 0;
+        this.size = 3;
+    }
+
+    enQueue(data) {
+        if (this.count >= this.size)
+            return console.log('Stack overflow!');
+
+        const newNode = new Node(data)
+        if (!this.head) {
+            this.head = newNode;
+            this.tail = newNode;
+        } else {
+            this.tail.next = newNode;
+            this.tail = newNode;
+        }
+        this.count++;
+        return console.log('Added', data);
+    }
+
+    deQueue() {
+        if (!this.head)
+            return console.log('Stack is empty');
+        const removed = this.head.data;
+        this.head = this.head.next;
+        this.count--
+        return console.log("Removed", removed);
+    }
+
+    top() {
+        if (!this.head)
+            return console.log('Stack is empty');
+        return console.log(this.head.data);
+    }
+
+    printQueue() {
+        let current = this.head;
+        const result = [];
+        while (current) {
+            result.push(current.data)
+            current = current.next
+        }
+        return console.log({ result });
+    }
+}
+
+const mystack = new QueueLL();
+mystack.enQueue(2)
+mystack.enQueue(3)
+mystack.enQueue(4)
+mystack.printQueue();
+mystack.deQueue()
+mystack.deQueue()
+mystack.printQueue();
+mystack.top()
