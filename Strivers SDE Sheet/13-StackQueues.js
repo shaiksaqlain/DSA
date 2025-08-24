@@ -200,9 +200,6 @@ class StackLL {
 
 //##########################################################  Queue implemention using Linkedlist ###############################################
 
-
-
-
 class QueueLL {
     constructor() {
         this.head = null;
@@ -253,12 +250,189 @@ class QueueLL {
     }
 }
 
-const mystack = new QueueLL();
-mystack.enQueue(2)
-mystack.enQueue(3)
-mystack.enQueue(4)
-mystack.printQueue();
-mystack.deQueue()
-mystack.deQueue()
-mystack.printQueue();
-mystack.top()
+// const mystack = new QueueLL();
+// mystack.enQueue(2)
+// mystack.enQueue(3)
+// mystack.enQueue(4)
+// mystack.printQueue();
+// mystack.deQueue()
+// mystack.deQueue()
+// mystack.printQueue();
+// mystack.top()
+
+
+//##########################################################  Stack implemention using Queue ###############################################
+
+class StackUsingQueue {
+
+    constructor() {
+        this.mainQueue = [];
+        this.helperQueue = [];
+    }
+
+    push(data) {
+        this.helperQueue.push(data);
+        while (this.mainQueue.length > 0) {
+            this.helperQueue.push(this.mainQueue.shift());
+        }
+        [this.helperQueue, this.mainQueue] = [this.mainQueue, this.helperQueue]
+        console.log('Added element:', data);
+    }
+
+    pop() {
+        if (this.mainQueue == 0) {
+            return console.log('Stack is Empty!');
+        }
+        console.log('Removed first element:', this.mainQueue[0]);
+        return this.mainQueue.shift();
+    }
+
+    top() {
+        if (this.helperQueue == 0) {
+            return console.log('Stack is Empty!');
+        }
+        return this.helperQueue[0];
+    }
+
+    print() {
+        console.log(this.mainQueue);
+    }
+
+}
+
+// const myStackUsingQueue = new StackUsingQueue();
+// myStackUsingQueue.push(1)
+// myStackUsingQueue.push(2)
+// myStackUsingQueue.push(3)
+// myStackUsingQueue.print()
+// myStackUsingQueue.pop()
+// myStackUsingQueue.pop()
+// myStackUsingQueue.pop()
+// myStackUsingQueue.print()
+
+
+//##########################################################  Queue implemention using Stack ###############################################
+
+class QueueUsingStack {
+    constructor() {
+        this.mainStack = [];
+        this.helperStack = [];
+    }
+
+    enqueue(data) {
+        while (this.mainStack.length) {
+            this.helperStack.push(this.mainStack.pop())
+        }
+        this.mainStack.push(data);
+        while (this.helperStack.length) {
+            this.mainStack.push(this.helperStack.pop())
+        }
+        console.log('Added element:', data);
+    }
+
+    deQueue() {
+        if (!this.mainStack.length) {
+            console.log('Empty Stack');
+        }
+        console.log('Poped element:', this.mainStack.pop());
+    }
+    print() {
+        console.log(this.mainStack);
+    }
+}
+
+const myQueueUsingStack = new QueueUsingStack();
+// myQueueUsingStack.enqueue(1)
+// myQueueUsingStack.enqueue(2)
+// myQueueUsingStack.enqueue(3)
+// myQueueUsingStack.print()
+// myQueueUsingStack.deQueue()
+// myQueueUsingStack.deQueue()
+// myQueueUsingStack.deQueue()
+
+//########################################################## Check for balanced parentheses ###############################################
+
+function balancedParentheses(str) {
+    const parentheses = { '}': '{', ']': '[', ')': '(' }
+    const stack = [];
+    for (char of str) {
+        if (char === '{' || char === '[' || char === '(') {
+            stack.push(char)
+        } else if (char === '}' || char === ']' || char === ')') {
+            if (stack.length === 0) return false;
+            const top = stack.pop();
+            if (parentheses[char] != top) return false
+        }
+    }
+    return stack.length === 0;
+}
+// const s = "()[]{}";
+// // const s = "()[}]{}";
+// console.log(balancedParentheses(s));
+
+//########################################################## Next Greater Element Using Stack ###############################################
+
+function nextGreaterElement(array) {
+    const stack = []
+    const result = []
+    for (let i = array.length - 1; i >= 0; i--) {
+        while (stack.length > 0 && stack[stack.length - 1] <= array[i]) {
+            stack.pop()
+        }
+
+        if (stack.length == 0) {
+            result[i] = -1
+        } else {
+            result[i] = stack[stack.length - 1];
+        }
+        stack.push(array[i])
+    }
+    return result
+}
+
+// const array = [3, 10, 4, 2, 1, 2, 6, 1, 7, 2, 9];
+// console.log(nextGreaterElement(array));
+
+//########################################################## sort Stack ###############################################
+
+
+function sortStack(stack) {
+    const tempStack = [];
+    while (stack.length > 0) {
+        const temp = stack.pop()
+        while (tempStack.length > 0 && tempStack[tempStack.length - 1] < temp) {
+            stack.push(tempStack.pop())
+        }
+        tempStack.push(temp)
+    }
+    while (tempStack.length > 0) {
+        stack.push(tempStack.pop())
+    }
+    return stack
+}
+
+// const stack = [34, 3, 31, 98, 92, 23];
+// console.log(sortStack(stack));
+
+//########################################################## Next Smaller Element Using Stack ###############################################
+
+function nextSmallerElement(array) {
+    const stack = [];
+    const result = [];
+    for (let i = array.length - 1; i >= 0; i--) {
+
+        while (stack.length > 0 && array[i] <= stack[stack.length - 1]) {
+            stack.pop()
+        }
+        if (stack.length == 0) {
+            result[i] = -1;
+        } else {
+            result[i] = stack[stack.length - 1];
+        }
+        stack.push(array[i])
+    }
+    return result
+}
+
+// const array = [3, 10, 4, 2, 1, 2, 6, 1, 7, 2, 9];
+// console.log(nextSmallerElement(array));
