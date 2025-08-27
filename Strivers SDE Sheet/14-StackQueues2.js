@@ -143,5 +143,170 @@ function slidingWindowMaximum(array, k) {
 }
 
 
-const array = [4, 0, -1, 3, 5, 3, 6, 8], k = 3;
-console.log(slidingWindowMaximum(array, k));
+// const array = [4, 0, -1, 3, 5, 3, 6, 8], k = 3;
+// console.log(slidingWindowMaximum(array, k));
+
+//########################################################## Min Stack ###############################################
+
+class MinStack {
+    constructor() {
+        this.stack = [];
+        this.min = null;
+    }
+
+    push(x) {
+        if (this.stack.length == 0) {
+            this.stack.push(x)
+            this.min = x;
+            return
+        }
+        if (x > this.min) {
+            this.stack.push(x);
+        } else {
+            this.stack.push((2 * x) - this.min)
+            this.min = x
+        }
+    }
+    pop() {
+        if (this.stack.length === 0) return null;
+        const top = this.stack.pop();
+        if (top < this.min) {
+            const originalMin = this.min
+            this.min = (2 * this.min) - top
+            return originalMin
+        } else {
+            return top
+        }
+    }
+
+    top() {
+        const top = this.stack[this.stack.length - 1]
+        return top < this.min ? this.min : top;
+    }
+
+    getMin() {
+        return this.min
+    }
+}
+
+// const minStack = new MinStack();
+// minStack.push(5);
+// minStack.push(3);
+// minStack.push(7);
+// console.log(minStack.getMin()); // 3
+// minStack.pop();
+// console.log(minStack.getMin()); // 3
+// minStack.pop();
+// console.log(minStack.getMin()); // 5
+
+//#################################### Rotten Oranges  ###############################################
+
+function rottanOranges(grid) {
+    const rows = grid.length;
+    const cols = grid[0].length;
+    const queue = [];
+    let freshOranges = 0;
+
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            if (grid[i][j] == 2) {
+                queue.push([i, j])
+            } else if (grid[i][j] == 1) {
+                freshOranges++
+            }
+        }
+    }
+    if (freshOranges === 0) return 0;
+    const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+    let timeElasped = -1
+
+    while (queue.length > 0) {
+        const currentLength = queue.length;
+        timeElasped++
+        for (let i = 0; i < currentLength; i++) {
+            let [currentRow, currentCol] = queue.shift();
+            for (let [moveByRow, moveByCol] of directions) {
+                const newRow = currentRow + moveByRow;
+                const newCol = currentCol + moveByCol;
+                if (newRow >= 0 && newRow < rows &&
+                    newCol >= 0 && newCol < cols &&
+                    grid[newRow][newCol] == 1
+                ) {
+                    grid[newRow][newCol] = 2
+                    freshOranges--;
+                    queue.push([newRow, newCol])
+                }
+            }
+        }
+    }
+    return freshOranges != 0 ? -1 : timeElasped
+}
+
+
+// const grid = [
+//     [2, 1, 1],
+//     [1, 1, 0],
+//     [0, 1, 1]
+// ];
+
+// console.log(rottanOranges(grid));
+
+
+//#################################### Stock span problem  ###############################################
+
+function stockSpan(stocks) {
+    const stack = [];
+    const span = [];
+    for (let i = 0; i < stocks.length; i++) {
+        while (stack.length && stocks[stack[stack.length - 1]] <= stocks[i]) {
+            stack.pop()
+        }
+
+        span[i] = stack.length ? i - stack[stack.length - 1] : i + 1;
+
+        stack.push(i)
+    }
+    return span
+}
+
+// console.log(stockSpan([100, 80, 60, 70, 60, 75, 85]));
+
+//#################################### The Celebrity Problem  ###############################################
+
+function findCelebrity(M) {
+    const n = M.length;
+    let start = 0, end = n - 1;
+
+    while (start < end) {
+        if (M[start][end] == 1) {
+            start++
+        } else {
+            end--
+        }
+    }
+    const candidate = start;
+
+    for (let i = 0; i < n; i++) {
+        if (start != i) {
+            if (M[candidate][i] == 1 && M[i][candidate] == 0) {
+                return -1
+            }
+        }
+    }
+    return candidate
+}
+
+// const M = [
+//     [0, 1, 1],
+//     [0, 0, 1],
+//     [0, 0, 0]
+// ]
+// const M = [
+//     [0, 1, 0, 1],
+//     [1, 0, 1, 0],
+//     [0, 0, 0, 1],
+//     [1, 1, 0, 0]
+// ]
+// console.log(findCelebrity(M));
+
+
