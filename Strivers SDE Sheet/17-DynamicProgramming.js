@@ -129,9 +129,6 @@ function editDistance(str1, str2) {
 
 //#################################### 	Maximum sum increasing subsequence  ###############################################
 
-
-
-
 function maxSumIncreasingSubsequence(array) {
     const dp = [...array];
 
