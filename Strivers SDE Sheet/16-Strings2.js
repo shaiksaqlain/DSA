@@ -40,7 +40,7 @@ function countAndSay(n) {
 
 
 // Test
-console.log(countAndSay(1)); // "1"
+// console.log(countAndSay(1)); // "1"
 // console.log(countAndSay(4)); // "1211"
 // console.log(countAndSay(5)); // "111221"
 // console.log(countAndSay(6)); // "312211"
@@ -65,3 +65,25 @@ function compareVersion(version1, version2) {
 // console.log(compareVersion("1.0", "1.0.0"));   // 0
 // console.log(compareVersion("0.1", "1.1"));     // -1
 // console.log(compareVersion("1.0.1", "1"));     // 1
+
+//#################################### Minimum characters needed to be inserted in the beginning to make it palindromic  ###############################################
+
+function minInsertionsToPalindromeLCS(str1) {
+    const str2 = str1.split('').reverse().join('')
+    const dp = Array.from({ length: str1.length + 1 }, () => Array(str2.length + 1).fill(0))
+    for (let i = str1.length - 1; i >= 0; i--) {
+        for (let j = str2.length - 1; j >= 0; j--) {
+            if (str1[i] == str2[j]) {
+                dp[i][j] = 1 + dp[i + 1][j + 1]
+            } else {
+                dp[i][j] = Math.max(dp[i + 1][j], dp[i][j + 1])
+            }
+        }
+    }
+    return str1.length - dp[0][0];
+}
+
+// console.log(minInsertionsToPalindromeLCS("abcd"));      // Output: 3
+// console.log(minInsertionsToPalindromeLCS("aacecaaa"));  // Output: 1
+// console.log(minInsertionsToPalindromeLCS("race"));      // Output: 3
+// console.log(minInsertionsToPalindromeLCS("google")); 
