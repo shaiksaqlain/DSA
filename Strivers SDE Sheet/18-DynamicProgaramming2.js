@@ -218,5 +218,5 @@ function lengthOfLIS(array) {
     return Math.max(...dp)
 }
 //[1, 1, 2, 2,3, 3, 4]
-const nums = [9, 1, 4, 2, 3, 3, 7]
-console.log(lengthOfLIS(nums)); // 4
+// const nums = [9, 1, 4, 2, 3, 3, 7]
+// console.log(lengthOfLIS(nums)); // 4
