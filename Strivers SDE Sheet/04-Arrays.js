@@ -25,10 +25,10 @@ function threeSum(array, target) {
         let j = i + 1, k = array.length - 1;
         while (j < k) {
             const sum = array[i] + array[j] + array[k];
-            if (sum == target) {
+            if (sum === target) {
                 result.push([array[i], array[j], array[k]])
-                j++
-                k--
+                j++;
+                k--;
                 while (j < k && array[j] == array[j - 1]) j++;
                 while (j < k && array[k] == array[k + 1]) k--;
             } else if (sum > target) {
@@ -37,6 +37,7 @@ function threeSum(array, target) {
                 j++
             }
         }
+
     }
     return result;
 }
@@ -141,16 +142,15 @@ function largestSubArrayOfKSum(array, target) {
 //####################################### Number of Subarray with K sum ########################################
 
 function numberSubArrayOfKSum(array, target) {
-    const hashMap = { 0: 1 }
-    let prefixSum = 0;
-    let count = 0
+    const hashMap = { 0: 1 };
+    let count = 0, prefixSum = 0;
     for (let i = 0; i < array.length; i++) {
-        prefixSum += array[i]
+        prefixSum += array[i];
         const compliment = prefixSum - target;
-        count += hashMap[compliment] || 0;
+        count += hashMap[compliment] || 0
         hashMap[prefixSum] = (hashMap[prefixSum] || 0) + 1
     }
-    return count;
+    return count
 }
 
 // const array = [3, 1, 2, 4], target = 6
@@ -178,18 +178,18 @@ function numberSubArrayOfKXOR(array, k) {
 
 function lengthOfLongestSubString(str) {
     const hashMap = {};
+    let l = 0, r = 0;
     let length = 0;
-    let r = 0, l = 0;
     while (r < str.length) {
         if (str[r] in hashMap) {
-            l = Math.max(l, hashMap[str[r]] + 1)
+            l = Math.max(hashMap[str[r]] + 1, l);
         }
         hashMap[str[r]] = r;
-        length = Math.max(length, r - l + 1)
+        length = Math.max(length, r - l + 1);
         r++
     }
     return length
 }
 
-const str = 'abcabcbb';
-console.log(lengthOfLongestSubString(str));
+// const str = 'abcabcbb';
+// console.log(lengthOfLongestSubString(str));

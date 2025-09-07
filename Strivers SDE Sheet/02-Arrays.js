@@ -174,6 +174,6 @@ function countInversions(array, low, high) {
     return count
 }
 
-const array = [5, 3, 2, 1, 4];
-console.log(countInversions(array, 0, array.length - 1));
+// const array = [5, 3, 2, 1, 4,];
+// console.log(countInversions(array, 0, array.length - 1));
 

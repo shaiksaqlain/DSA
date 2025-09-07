@@ -3,7 +3,8 @@
 //####################################### Search in a sorted 2D matrix ########################################
 
 function searchInMatrix(array, target, m, n) {
-    let low = 0, high = (m * n + 1);
+    let low = 0, high = (m * n - 1);
+
     while (low <= high) {
         const mid = Math.floor((low + high) / 2)
 
@@ -21,15 +22,14 @@ function searchInMatrix(array, target, m, n) {
     return false
 }
 
-const matrix = [[1, 3, 5], [7, 9, 11], [13, 15, 17]], target = 9;
-console.log(searchInMatrix(matrix, target, matrix.length - 1, matrix[0].length - 1));
+// const matrix = [[1, 3, 5], [7, 9, 11], [13, 15, 17]], target = 9;
+// console.log(searchInMatrix(matrix, target, matrix.length, matrix[0].length));
 
 
 
 //####################################### Implement Pow(x,n) | X raised to the power N ########################################
 
 function powXN(x, n) {
-
     if (n == 0) {
         return x;
     }
@@ -128,9 +128,6 @@ function MajorityNBy3(array, n) {
 
 // const n = 6, array = [11, 33, 33, 11, 33, 11]
 // console.log(MajorityNBy3(array, n));
-
-
-//####################################### Find the Majority Element that occurs more than N/3 times ########################################
 
 
 //####################################### Reverse Pairs | Hard Interview Question ########################################

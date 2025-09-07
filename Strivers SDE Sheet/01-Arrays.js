@@ -114,8 +114,8 @@ function maximumSumInSubArray(array) {
     return maximumSum
 }
 
-const array = [4, -1, 2, 1]
-console.log(maximumSumInSubArray(array))
+// const array = [4, -1, 2, 1]
+// console.log(maximumSumInSubArray(array))
 
 
 //#################################### Sort an array of 0s, 1s and 2s ###############################################
@@ -147,7 +147,7 @@ function sort012(array) {
 function buySellStock(array) {
     let stockBought = array[0];
     let maxProfit = 0;
-    for (let i = i; i < array.length; i++) {
+    for (let i = 1; i < array.length; i++) {
         if (stockBought > array[i]) {
             stockBought = array[i]
         } else if (maxProfit < array[i] - stockBought) {
