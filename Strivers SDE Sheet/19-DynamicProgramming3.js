@@ -250,3 +250,102 @@ function longestIncreasingPathInMatrix(matrix) {
 
 
 //####################################  Longest Increasing Path In a Matrix   ###############################################
+
+function numDistinct(s, t) {
+    const m = s.length, n = t.length;
+    const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
+
+    for (let i = 0; i <= m; i++) {
+        dp[i][n] = 1;
+    }
+
+    for (let i = m - 1; i >= 0; i--) {
+        for (let j = n - 1; j >= 0; j--) {
+            if (s[i] == t[j]) {
+                dp[i][j] = dp[i + 1][j + 1] + dp[i + 1][j];
+            } else {
+                dp[i][j] = dp[i + 1][j];
+            }
+        }
+    }
+    return dp[0][0];
+}
+
+// [    b  a  g ""
+// b  [ 5, 3, 2, 1 ],
+// a  [ 2, 3, 2, 1 ],
+// b  [ 2, 1, 2, 1 ],
+// g  [ 1, 1, 2, 1 ],
+// b  [ 1, 1, 1, 1 ],
+// a  [ 0, 1, 1, 1 ],
+// g  [ 0, 0, 1, 1 ],
+// "" [ 0, 0, 0, 1 ]
+// ]
+// console.log(numDistinct("babgbag", "bag")); // 5
+
+
+//####################################  Edit Distance  ###############################################
+
+function editDistance(s, t) {
+    const m = s.length
+    const n = t.length
+    const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
+
+    for (let i = 0; i <= m; i++) dp[i][0] = i
+    for (let i = 0; i <= n; i++) dp[0][i] = i
+
+    for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+            console.log(s[i - 1] == t[j - 1]);
+
+            if (s[i - 1] == t[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1]
+            } else {
+                dp[i][j] = 1 + Math.min(
+                    dp[i - 1][j - 1],
+                    dp[i - 1][j],
+                    dp[i][j - 1]
+                )
+            }
+        }
+    }
+    return dp[m][n]
+}
+// [
+//   [ 0, 1, 2, 3, 4, 5 ],
+//   [ 1, 0, 1, 2, 3, 4 ],
+//   [ 2, 1, 0, 1, 2, 3 ],
+//   [ 3, 2, 1, 0, 1, 2 ],
+//   [ 4, 3, 2, 1, 1, 2 ],
+//   [ 5, 4, 3, 2, 1, 2 ],
+//   [ 6, 5, 4, 3, 2, 1 ],
+//   [ 7, 6, 5, 4, 3, 2 ]
+// ]
+// const word1 = "monkeys", word2 = "money"
+// console.log(editDistance(word1, word2));
+
+//####################################  Burst Balloons  ###############################################
+
+function maxCoins(baloons) {
+    baloons = [1, ...baloons, 1]
+    const n = baloons.length;
+    const dp = Array.from({ length: n }, () => Array(n).fill(0))
+
+    for (let window = 2; window < n; window++) {
+        for (let start = 0; start < n - window; start++) {
+            let end = start + window;
+            for (let brust = start + 1; brust < end; brust++) {
+                dp[start][end] = Math.max(
+                    dp[start][end], // current 
+                    baloons[start] * baloons[brust] * baloons[end] + // [n-1]* n* [n+1]
+                    dp[start][brust] + // left caluculated part for [n-n]....[n-1]
+                    dp[brust][end] // right caluculated part for [n+1]....[n+n]
+                )
+            }
+        }
+    }
+    return dp[0][n - 1]
+}
+
+// const nums = [4, 2, 3, 7]
+// console.log(maxCoins(nums));
