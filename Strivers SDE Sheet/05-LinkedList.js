@@ -78,7 +78,6 @@ class LinkedList {
         while (current) {
             if (current.data == data) {
                 console.log(`Data ${data} found at ${index} `);
-
             }
             current = current.next
             index++
@@ -110,19 +109,19 @@ class LinkedList {
         this.head = previous
     }
 
-    reverseLinkedListRecursively() {
-        this.head = this.recursiveReverse(this.head);
-    }
-
     recursiveReverse(head) {
         if (head == null || head.next == null) {
-            return head
+            return head;
         }
-        const newHead = this.recursiveReverse(head.next)
-        let front = head.next
-        front.next = head
+        const newHead = this.recursiveReverse(head.next);
+        const front = head.next;
+        front.next = head;
         head.next = null
         return newHead
+    }
+
+    reverseLinkedListRecursively() {
+        this.head = this.recursiveReverse(this.head);
     }
 
 
@@ -173,47 +172,46 @@ class LinkedList {
 
     removeNthNode(n) {
         if (!this.head) {
-            return;
+            console.log("Not Possible!");
+            return
         }
-        let i = new Node(0);
-        i.next = this.head
-        let j = this.head;
+        let i = this.head;
+        let j = this.head
         let count = 0
-
-        while (j && count < n - 1) {
-            j = j.next;
+        while (i && count < n) {
+            i = i.next;
             count++
         }
-
-        while (j.next) {
-            i = i.next
+        while (i.next) {
+            i = i.next;
             j = j.next;
         }
-        i.next = i.next.next;
+        j.next = j.next.next
     }
+
     addTwoLinkedList(list1, list2) {
-        let dummy = new Node(null);
-        let result = dummy
-        let carry = null;
-        let a = list1.head;
-        let b = list2.head;
-        while (a || b) {
-            let tempResult = a.data + b.data + carry;
-            carry = Math.floor(tempResult / 10);
-            tempResult = tempResult % 10
-            result.next = new Node(tempResult)
-            a = a.next;
-            b = b.next;
-            result = result.next
-        }
-        dummy = dummy.next
-        const list = []
-        while (dummy) {
-            list.push(dummy.data)
+        let a = list1.head
+        let b = list2.head
+        let result = new Node(null);
+        let dummy = result;
+        let carry = 0;
+
+        while (a || b || carry) {
+            const sum = a.data + b.data + carry;
+            carry = Math.floor(sum / 10);
+            const tempResult = sum % 10;
+            dummy.next = new Node(tempResult);
+            a = a.next
+            b = b.next
             dummy = dummy.next
         }
+        result = result.next;
+        const list = []
+        while (result) {
+            list.push(result.data);
+            result = result.next;
+        }
         console.log(list.join('->'));
-
     }
 }
 
@@ -233,7 +231,7 @@ class LinkedList {
 // list.delete(40)
 // console.log("All data after detele 40");
 // list.printList()
-// list.search(60)
+// list.search(40)
 // console.log("Search 60 in linkedlist...");
 // list.printList()
 // console.log("Itrative Reverse of linkedlist");
@@ -264,20 +262,21 @@ class LinkedList {
 // list.append(40)
 // list.append(50)
 // list.append(60)
-// list.removeNthNode(list, 3)
+// list.removeNthNode(3)
 // list.printList()
 
 
-// const list1 = new LinkedList();
-// list1.append(9)
-// list1.append(2)
-// list1.append(3)
-// list1.append(4)
-// const list2 = new LinkedList();
-// list2.append(3)
-// list2.append(2)
-// list2.append(2)
-// list2.append(2)
-// list1.addTwoLinkedList(list1, list2)
+const list1 = new LinkedList();
+list1.append(9)
+list1.append(2)
+list1.append(3)
+list1.append(4)
+const list2 = new LinkedList();
+list2.append(3)
+list2.append(2)
+list2.append(2)
+list2.append(2)
+list1.addTwoLinkedList(list1, list2)
+
 
 
