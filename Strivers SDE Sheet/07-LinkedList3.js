@@ -33,36 +33,55 @@
 //     }
 //     rotateLinkedList(list, rotation) {
 //         list = list.head;
-//         let dummy = list;
-//         let count = 0
+//         if (!list || !list.next) return;
+//         let temp = list;
+//         let length = 0;
 
-//         while (dummy) {
-//             count++
-//             dummy = dummy.next
+//         while (temp) {
+//             temp = temp.next;
+//             length++
 //         }
+//         rotation = rotation % length;
+//         length = (length - rotation) - 1;
 
-//         rotation = rotation % count
-//         if (!rotation) {
-//             return
+//         let current = list;
+//         while (length > 0) {
+//             current = current.next;
+//             length--
 //         }
-//         count = (count - rotation) - 1;
-//         let dummy2 = list;
-//         while (count > 0) {
-//             dummy2 = dummy2.next;
-//             count--
+//         this.head = current.next
+//         let newHead = this.head;
+//         current.next = null;
+
+//         while (newHead.next) {
+//             newHead = newHead.next;
 //         }
-//         dummy = dummy2.next;
-//         dummy2.next = null
-//         this.head = dummy;
-//         while (dummy.next) {
-//             dummy = dummy.next;
-//         }
-//         dummy.next = list;
+//         newHead.next = list
 //     }
 
 
-//     rotateLinkedList(list, rotation) {
+//     findCycleStart(head) {
+//         let slow = head;
+//         let fast = head;
 
+//         // Phase 1: Detect cycle
+//         while (fast && fast.next) {
+//             slow = slow.next;
+//             fast = fast.next.next;
+//             if (slow === fast) break;
+//         }
+
+//         // If no cycle
+//         if (!fast || !fast.next) return null;
+
+//         // Phase 2: Find start of cycle
+//         slow = head;
+//         while (slow !== fast) {
+//             slow = slow.next;
+//             fast = fast.next;
+//         }
+
+//         return slow; // starting node of the cycle
 //     }
 
 // }
@@ -75,7 +94,7 @@
 // list.append(3)
 // list.append(4)
 // list.append(5)
-// list.rotateLinkedList(list, 10)
+// list.rotateLinkedList(list, 3)
 // list.printList(5)
 
 
@@ -91,31 +110,28 @@ class Node {
 
 function cloneLinkedList(head) {
     let current = head;
-
     while (current) {
-        let copyNode = new Node(current.data, current.next);
-        current.next = copyNode;
-        current = copyNode.next
+        let newNode = new Node(current.data, current.next)
+        current.next = newNode;
+        current = current.next.next
     }
     current = head;
-
     while (current) {
         current.next.random = current.random.next;
         current = current.next.next
     }
-
-    let clonedList = head.next;
-    let dummyClonedList = clonedList;
+    
+    let cloneHead = head.next;
+    let copy = cloneHead;
     current = head;
-
     while (current) {
         current.next = current.next.next;
-        dummyClonedList.next = dummyClonedList.next ? dummyClonedList.next.next : null;
-        current = current.next
-        dummyClonedList = dummyClonedList.next
+        copy.next = copy.next ? copy.next.next : null;
+        current = current.next;
+        copy = copy.next;
     }
 
-    return clonedList;
+    return cloneHead;
 }
 
 // Create a simple test with random pointers
