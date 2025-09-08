@@ -1,101 +1,98 @@
-// class Node {
-//     constructor(data) {
-//         this.data = data;
-//         this.next = null;
-//     }
-// }
+class Node {
+    constructor(data) {
+        this.data = data;
+        this.next = null;
+    }
+}
 
-// class LinkedList {
-//     constructor() {
-//         this.head = null;
-//     }
+class LinkedList {
+    constructor() {
+        this.head = null;
+    }
 
-//     append(data) {
-//         const newNode = new Node(data)
-//         if (!this.head) {
-//             this.head = newNode;
-//             return;
-//         }
-//         let current = this.head;
-//         while (current.next) {
-//             current = current.next;
-//         }
-//         current.next = newNode;
-//     }
-//     printList() {
-//         let current = this.head;
-//         const list = []
-//         while (current) {
-//             list.push(current.data);
-//             current = current.next;
-//         }
-//         console.log(list.join('->'));
-//     }
-//     rotateLinkedList(list, rotation) {
-//         list = list.head;
-//         if (!list || !list.next) return;
-//         let temp = list;
-//         let length = 0;
+    append(data) {
+        const newNode = new Node(data)
+        if (!this.head) {
+            this.head = newNode;
+            return;
+        }
+        let current = this.head;
+        while (current.next) {
+            current = current.next;
+        }
+        current.next = newNode;
+    }
+    printList() {
+        let current = this.head;
+        const list = []
+        while (current) {
+            list.push(current.data);
+            current = current.next;
+        }
+        console.log(list.join('->'));
+    }
+    rotateLinkedList(list, rotation) {
+        list = list.head;
+        if (!list || !list.next) return;
+        let temp = list;
+        let length = 0;
 
-//         while (temp) {
-//             temp = temp.next;
-//             length++
-//         }
-//         rotation = rotation % length;
-//         length = (length - rotation) - 1;
+        while (temp) {
+            temp = temp.next;
+            length++
+        }
+        rotation = rotation % length;
+        length = (length - rotation) - 1;
 
-//         let current = list;
-//         while (length > 0) {
-//             current = current.next;
-//             length--
-//         }
-//         this.head = current.next
-//         let newHead = this.head;
-//         current.next = null;
+        let current = list;
+        while (length > 0) {
+            current = current.next;
+            length--
+        }
+        this.head = current.next
+        let newHead = this.head;
+        current.next = null;
 
-//         while (newHead.next) {
-//             newHead = newHead.next;
-//         }
-//         newHead.next = list
-//     }
+        while (newHead.next) {
+            newHead = newHead.next;
+        }
+        newHead.next = list
+    }
 
 
-//     findCycleStart(head) {
-//         let slow = head;
-//         let fast = head;
+    findCycleStart(head) {
+        let slow = head;
+        let fast = head;
+        while (fast && fast.next) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (fast == slow) {
+                break;
+            }
+        }
+        if (!fast || !fast.next) {
+            return -1;
+        }
+        slow = head;
+        while (fast != slow) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow
+    }
 
-//         // Phase 1: Detect cycle
-//         while (fast && fast.next) {
-//             slow = slow.next;
-//             fast = fast.next.next;
-//             if (slow === fast) break;
-//         }
-
-//         // If no cycle
-//         if (!fast || !fast.next) return null;
-
-//         // Phase 2: Find start of cycle
-//         slow = head;
-//         while (slow !== fast) {
-//             slow = slow.next;
-//             fast = fast.next;
-//         }
-
-//         return slow; // starting node of the cycle
-//     }
-
-// }
+}
 
 
 
-// const list = new LinkedList();
-// list.append(1)
-// list.append(2)
-// list.append(3)
-// list.append(4)
-// list.append(5)
-// list.rotateLinkedList(list, 3)
-// list.printList(5)
+const list = new LinkedList();
+list.append(1)
+list.append(2)
+list.append(3)
+list.append(4)
+list.append(5)
+list.rotateLinkedList(list, 3)
+list.printList(5)
 
 
 
@@ -120,7 +117,7 @@ function cloneLinkedList(head) {
         current.next.random = current.random.next;
         current = current.next.next
     }
-    
+
     let cloneHead = head.next;
     let copy = cloneHead;
     current = head;
