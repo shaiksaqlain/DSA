@@ -23,12 +23,12 @@ function trappingRainwaterv2(heights) {
             if (heights[l] > leftMax) {
                 leftMax = heights[l]
             } else {
-                total += leftMax - heights[l];
+                total += leftMax - heights[l]
             }
             l++
         } else {
             if (heights[r] > rightMax) {
-                rightMax = heights[r]
+                rightMax = heights[r];
             } else {
                 total += rightMax - heights[r];
             }
@@ -38,16 +38,16 @@ function trappingRainwaterv2(heights) {
     return total
 }
 
-const heights = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1];
-// console.log(trappingRainwaterv2(heights));
+// const heights = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1];
+// console.log(trappingRainwaterv2(heights));  //6
 
 //#################################### remove duplicates ###############################################
 
 function removeDuplicates(array) {
     let i = 0, j = 1;
     while (j < array.length) {
-        if (array[i] != array[j]) {
-            array[i + 1] = array[j];
+        if (array[j] != array[i]) {
+            array[i + 1] = array[j]
             i++
         }
         j++
@@ -76,5 +76,5 @@ function countNumberOfConsecutiveOnes(array) {
     return max;
 }
 
-const array = [1, 0, 1, 1, 0, 1];
-console.log(countNumberOfConsecutiveOnes(array));
+// const array = [1, 0, 1, 1, 0, 1];
+// console.log(countNumberOfConsecutiveOnes(array));
