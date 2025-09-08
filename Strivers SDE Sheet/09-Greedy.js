@@ -1,16 +1,14 @@
 //#################################### N meetings in one room ###############################################
 
 function nMeetingsInOneRoom(start, end, n) {
-    const meetings = start.map((startTime, inddex) => ({ start: startTime, end: end[inddex] }));
-    meetings.sort((a, b) => a.end - b.end);
-
+    const meetings = start.map((startTime, index) => ({ startTime: startTime, endTime: end[index] }))
+    meetings.sort((a, b) => (a.endTime - b.endTime))
     let total = 0;
-    let lastEndTime = 0
-
-    for (let i = 0; i < n; i++) {
-        if (meetings[i].start > lastEndTime) {
-            total++
-            lastEndTime = meetings[i].end
+    let lastEndTime = 0;
+    for (let meeting of meetings) {
+        if (meeting.startTime >= lastEndTime) {
+            lastEndTime = meeting.endTime
+            total++;
         }
     }
 
@@ -18,60 +16,58 @@ function nMeetingsInOneRoom(start, end, n) {
 }
 
 // const n = 3;
-// const start = [1, 1, 1];
-// const end = [2, 2, 2];
+// const start = [1, 3, 0, 5, 8, 5]
+// const end = [2, 4, 6, 7, 9, 9]
 // console.log(nMeetingsInOneRoom(start, end, n));
 
 
 //#################################### Minimum number of platforms required for a railway ###############################################
 
-function findMinimumFlatforms(arrival, depature, n) {
-    arrival = arrival.sort();
-    depature = depature.sort();
-
-    let platforms = 1
-    let maxPlatforms = 1
+function findMinimumFlatforms(arrival, departure, n) {
+    arrival = arrival.sort()
+    departure = departure.sort()
+    let platforms = 1, maxPlatforms = 0;
     let i = 1, j = 0;
     while (i < n && j < n) {
-        if (arrival[i] <= depature[j]) {
-            i++
+        if (arrival[i] <= departure[j]) {
             platforms++
+            maxPlatforms = Math.max(maxPlatforms, platforms);
+            i++
         } else {
-            j++;
-            platforms--;
+            platforms--
+            j++
         }
-        maxPlatforms = Math.max(platforms, maxPlatforms);
     }
-    return maxPlatforms;
+    return maxPlatforms
 }
 
 // const n = 6;
 // const arrival = [900, 945, 955, 1100, 1500, 1800];
-// const depature = [910, 1200, 1120, 1130, 1900, 2000];
-// console.log(findMinimumFlatforms(arrival, depature, n));
+// const departure = [910, 1200, 1120, 1130, 1900, 2000];
+// console.log(findMinimumFlatforms(arrival, departure, n));
 
 
 //#################################### Job Sequencing Problem ###############################################
 
 function jobSequenc(jobs) {
-    jobs = jobs.sort((a, b) => b.profit - a.profit);
-    const maxDealine = Math.max(...jobs.map((job) => (job.deadline)))
-    const jobSequenc = Array(maxDealine + 1).fill(false);
-    let profit = 0;
-    let count = 0
-
+    jobs = jobs.sort((a, b) => (b.profit - a.profit));
+    const maxDealine = Math.max(...jobs.map((job, indes) => { return job.deadline }))
+    const deadlines = Array(maxDealine + 1).fill(false);
+    let profit = 0
+    let count = 0;
     for (let job of jobs) {
         for (let t = job.deadline; t > 0; t--) {
-            if (jobSequenc[t] == false) {
-                jobSequenc[t] = true
-                profit += job.profit
-                count++
+            if (deadlines[t] == false) {
+                deadlines[t] = true;
+                profit += job.profit;
+                count++;
                 break;
             }
         }
     }
     return { profit, count }
 }
+
 // const jobs = [
 //     { id: 'a', deadline: 2, profit: 100 },
 //     { id: 'b', deadline: 1, profit: 19 },
@@ -86,22 +82,21 @@ function jobSequenc(jobs) {
 
 
 function fractionalKnapsack(capacity, items) {
-    items = items.sort((a, b) => ((b.value / b.weight) - (a.value / a.weight)));
-
-    let totalValue = 0
+    items.sort((a, b) => (b.value / b.weight - a.value / a.weight))
+    let totalValue = 0;
     for (let item of items) {
         if (item.weight <= capacity) {
             totalValue += item.value
             capacity -= item.weight
         } else {
-            let remainingCapacity = item.value * (capacity / item.weight)
-            totalValue += remainingCapacity
+            const remainingCapacityValue = capacity * (item.value / item.weight)
+            totalValue += remainingCapacityValue;
             break;
         }
     }
-
-    return totalValue
+    return totalValue;
 }
+
 // const items = [
 //     { value: 60, weight: 10 },
 //     { value: 100, weight: 20 },
@@ -140,15 +135,15 @@ function assignCookies(childrens, cookies) {
     let cookie = 0
     while (cookie < cookies.length && child < childrens.length) {
         if (cookies[cookie] >= childrens[child]) {
-            cookie++
             child++
-        }
-        else {
+            cookie++
+        } else {
             child++
         }
     }
     return cookie
 }
 
-const childrens = [1, 2], cookies = [1, 2, 3]
-console.log(assignCookies(childrens, cookies));
+
+// const childrens = [1, 2], cookies = [1, 2, 3]
+// console.log(assignCookies(childrens, cookies));
